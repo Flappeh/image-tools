@@ -1,27 +1,53 @@
 <template>
-    <button class="screen-picker" name="screen-button" @click="save">
-        Choose Screen
-    </button>
+    <div>
+        <button class="button screen-picker" name="screen-button" @click="getSources">
+            <img src="@assets/icons/reload.svg" alt="">
+        </button>
+        <select name="source-selector" id="sourceSelect" @change="$emit('video-source', $event)" class="button">
+            <option value="" selected disabled>Choose</option>
+            <option :value="source.id" v-for="source in sourceList" :key="source.id" >{{ source.name }}</option>
+        </select>
+    </div>
     <div class="button-controls">
-        <button name="record-button">Record</button>
-        <button name="stop-button">Stop</button>
-        <button name="save-button">Save</button>
+        <button class="button "name="record-button">Record</button>
+        <button class="button "name="stop-button">Stop</button>
+        <button class="button "name="save-button">Save</button>
     </div>
 </template>
 
-<script setup lang="ts">
-const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+<script lang="ts">
+import { DesktopCapturerSource} from 'electron';
+let sourceList: DesktopCapturerSource[];
 
-const screenButton = document.querySelector('#screen-button')
-const recordButton = document.querySelector('#record-button')
-const stopButton = document.querySelector('#stop-button')
-const saveButton = document.querySelector('#save-button')
-
-const save = async () => {
-    await window.electron.ipcRenderer.invoke('screen-pick', 'hellos')
+export default {
+    name: "ButtonControls",
+    data() {
+        return {
+            sourceList: [] as DesktopCapturerSource[],
+        }
+    },
+    mounted() {
+        console.log(sourceList)
+    },
+    methods: {
+        async getSources() {
+            this.sourceList = await window.api.getSourceList()
+            console.log(this.sourceList)
+        },
+    }
 }
-
 
 </script>
 
-<style scoped></style>
+<style scoped>
+img{
+    width: 25px;
+    height: 25px;
+}
+select[name="source-selector"]{
+    width: 500px;
+}
+select[name="source-selector"] option{
+    width: 500px;
+}
+</style>

@@ -3,25 +3,22 @@ import {
     shell,
     BrowserWindow,
     ipcMain,
-    ipcRenderer,
     desktopCapturer,
-    DesktopCapturerSource
 } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { DesktopCapturer, Menu } from 'electron'
-
 function createWindow(): void {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 900,
-        height: 670,
+        width: 1280,
+        height: 720,
         show: false,
         autoHideMenuBar: true,
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
             preload: join(__dirname, '../preload/index.js'),
+            nodeIntegration: true,
             sandbox: false
         }
     })
@@ -59,27 +56,12 @@ app.whenReady().then(() => {
     })
 
     // IPC test
-    ipcMain.on('ping', () => console.log('pong'))
-
-    ipcMain.handle('screen-pick', async (event, message) => {
+    ipcMain.handle('select-source', async (event, args) => {
         const inputSources = await desktopCapturer.getSources({
             types: ['screen', 'window']
         })
-        const videoOptionsMenu = Menu.buildFromTemplate(
-            inputSources.map((source) => {
-                return {
-                    label: source.name,
-                    click: () => selectSource(source)
-                }
-            })
-        )
-        videoOptionsMenu.popup()
+        return inputSources;
     })
-
-    const selectSource = (source: DesktopCapturerSource) => {
-        console.log('picked' + source.name)
-    }
-
     createWindow()
 
     app.on('activate', function () {

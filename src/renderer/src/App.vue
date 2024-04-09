@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import Versions from './components/Versions.vue'
-import ButtonControls from './components/ButtonControls.vue';
-const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+import Sidebar from './components/Sidebar.vue';
 </script>
 
 <template>
-  <ButtonControls />
-  <Versions />
+  <Sidebar />
+  <router-view />
 </template>
+<style>
+
+main {
+    /* background-color: black; */
+    height: 100vh;
+    width: 100vw;
+}
+</style>
