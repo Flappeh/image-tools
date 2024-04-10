@@ -3,7 +3,8 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {
-    getSourceList: () => ipcRenderer.invoke('select-source')
+    getSourceList: () => ipcRenderer.invoke('select-source'),
+    saveRecordedData: async (e: Buffer) => await ipcRenderer.invoke('save-recorded-data', e)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
