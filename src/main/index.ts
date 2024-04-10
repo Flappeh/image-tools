@@ -1,13 +1,8 @@
-import {
-    app,
-    shell,
-    BrowserWindow,
-    ipcMain,
-    desktopCapturer,
-} from 'electron'
+import { app, shell, BrowserWindow, ipcMain, desktopCapturer, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { writeFile } from 'fs'
 function createWindow(): void {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
@@ -56,11 +51,24 @@ app.whenReady().then(() => {
     })
 
     // IPC test
-    ipcMain.handle('select-source', async (event, args) => {
+    ipcMain.handle('select-source', async () => {
         const inputSources = await desktopCapturer.getSources({
             types: ['screen', 'window']
         })
-        return inputSources;
+        return inputSources
+    })
+
+    ipcMain.handle('showSaveDialog', async () => {
+        return await dialog.showSaveDialog({
+            buttonLabel: 'Save Video',
+            defaultPath: `record-${Date.now()}.webm`
+        })
+    })
+
+    ipcMain.handle('saveVideoFile', async (_, args) => {
+        await writeFile(args.filepath, args.buffer, () => {
+            return true
+        })
     })
     createWindow()
 

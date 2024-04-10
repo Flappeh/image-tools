@@ -16,8 +16,12 @@
         </select>
     </div>
     <div class="button-controls">
-        <button class="button is-primary" name="record-button" @click="$emit('recording', true)">Record</button>
-        <button class="button is-danger" name="stop-button" @click="$emit('recording', false)">Stop</button>
+        <button class="button is-primary" name="record-button" @click="$emit('recording', true)">
+            Record
+        </button>
+        <button class="button is-danger" name="stop-button" @click="$emit('recording', false)">
+            Stop
+        </button>
         <button class="button" name="save-button">Save</button>
     </div>
 </template>
@@ -35,7 +39,7 @@ export default {
         }
     },
     mounted() {
-        console.log(sourceList)
+        this.getSources()
     },
     methods: {
         async getSources() {

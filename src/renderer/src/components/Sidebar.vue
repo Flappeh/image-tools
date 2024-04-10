@@ -4,6 +4,9 @@
         <router-link to="/screen-recorder"
             ><img src="@assets/icons/screen-record.svg" alt="screen-record-navigator"
         /></router-link>
+        <router-link to="/image-converter"
+            ><img src="@assets/icons/image-convert.svg" alt="home-navigator"
+        /></router-link>
     </aside>
 </template>
 

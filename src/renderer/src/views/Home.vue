@@ -4,18 +4,16 @@
     </main>
 </template>
 
-<script lang="ts" setup>
-
-</script>
+<script lang="ts" setup></script>
 
 <style lang="css" scoped>
-main{
+main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-h1{
+h1 {
     font-size: 3rem;
     font-weight: 600;
 }

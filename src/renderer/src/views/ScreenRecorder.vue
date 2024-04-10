@@ -1,13 +1,13 @@
 <template>
     <main>
-        <VideoControl :selectedSource :recording="recording"/>
-        <ButtonControls @video-source="handleSelectedSource" @recording="setRecord"/>
+        <VideoControl :selectedSource :recording="recording" />
+        <ButtonControls @video-source="handleSelectedSource" @recording="setRecord" />
     </main>
 </template>
 
 <script lang="ts">
-import ButtonControls from '@renderer/components/ButtonControls.vue'
-import VideoControl from '@renderer/components/VideoControl.vue'
+import ButtonControls from '@renderer/components/ScreenRecorder/ButtonControls.vue'
+import VideoControl from '@renderer/components/ScreenRecorder/VideoControl.vue'
 export default {
     name: 'ScreenRecorder',
     components: {
@@ -21,10 +21,10 @@ export default {
         }
     },
     methods: {
-        handleSelectedSource(e: Event){
-            this.selectedSource = (e.target as HTMLSelectElement).value;
+        handleSelectedSource(e: Event) {
+            this.selectedSource = (e.target as HTMLSelectElement).value
         },
-        setRecord(e: boolean){
+        setRecord(e: boolean) {
             this.recording = e
         }
     }
@@ -36,6 +36,5 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* overflow-y: scroll; */
 }
 </style>

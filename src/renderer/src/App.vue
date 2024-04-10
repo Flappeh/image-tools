@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import Sidebar from './components/Sidebar.vue';
+import Sidebar from './components/Sidebar.vue'
 </script>
 
 <template>
-  <Sidebar />
-  <router-view />
+    <Sidebar />
+    <router-view />
 </template>
 <style>
-
 main {
     /* background-color: black; */
-    height: 100vh;
-    width: 100vw;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
 }
 </style>

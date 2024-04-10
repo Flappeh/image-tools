@@ -1,10 +1,12 @@
-import { contextBridge, DesktopCapturerSource, ipcMain, ipcRenderer } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {
     getSourceList: () => ipcRenderer.invoke('select-source'),
-    saveRecordedData: async (e: Buffer) => await ipcRenderer.invoke('save-recorded-data', e)
+    saveRecordedData: async (path: string, e: Buffer) =>
+        await ipcRenderer.invoke('saveVideoFile', { filepath: path, buffer: e }),
+    showSaveDialog: () => ipcRenderer.invoke('showSaveDialog')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
