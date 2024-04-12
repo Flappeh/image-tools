@@ -1,6 +1,10 @@
 <template>
     <main>
-        <h1>Flappeh all around tools</h1>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <p class="title">Flappeh all around tools</p>
+            </div>
+        </section>
     </main>
 </template>
 
@@ -12,6 +16,12 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.hero {
+    border-radius: 15px;
+}
+.title {
+    font-size: 3rem;
 }
 h1 {
     font-size: 3rem;

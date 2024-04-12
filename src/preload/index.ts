@@ -6,7 +6,8 @@ const api = {
     getSourceList: () => ipcRenderer.invoke('select-source'),
     saveRecordedData: async (path: string, e: Buffer) =>
         await ipcRenderer.invoke('saveVideoFile', { filepath: path, buffer: e }),
-    showSaveDialog: () => ipcRenderer.invoke('showSaveDialog')
+    showSaveDialog: () => ipcRenderer.invoke('showSaveDialog'),
+    showInputDialog: () => ipcRenderer.invoke('showInputDialog')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

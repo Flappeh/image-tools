@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { writeFile } from 'fs'
+import { readFile } from 'fs'
 function createWindow(): void {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
@@ -68,6 +69,22 @@ app.whenReady().then(() => {
     ipcMain.handle('saveVideoFile', async (_, args) => {
         await writeFile(args.filepath, args.buffer, () => {
             return true
+        })
+    })
+
+    ipcMain.handle('showInputDialog', async (_, args) => {
+        return await dialog.showOpenDialog(null, (fileNames) => {
+            if (fileNames === undefined) {
+                console.log('no files selected')
+                return
+            }
+            readFile(fileNames[0], 'utf-8', (err, data) => {
+                if (err) {
+                    console.log('Cannot read file : ', err)
+                    return
+                }
+                console.log('Data from file : ', data)
+            })
         })
     })
     createWindow()
